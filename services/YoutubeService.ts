@@ -99,4 +99,42 @@ export class YoutubeService {
         }
     }
 
+    static formatSeconds(seconds: number): string {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+
+        const formattedHours = String(hours).padStart(2, '0');
+        const formattedMinutes = String(minutes).padStart(2, '0');
+        const formattedSeconds = String(secs).padStart(2, '0');
+
+        return `${formattedHours !== '00' ? formattedHours + ':' : ''}${formattedMinutes}:${formattedSeconds}`;
+    }
+
+    static formatNumberForHumans(num: number): string {
+        if (num === 0) return '0'
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        }
+        if (num >= 1000) {
+            return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+        }
+        return num.toString();
+    }
+
+    static formatDate(isoDateString: string, locale = 'en-US'): string {
+        const date = new Date(isoDateString);
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        const formatter = new Intl.DateTimeFormat(locale, options);
+        return formatter.format(date);
+    }
+
 }

@@ -7,6 +7,7 @@ export interface VideoInterface {
     imageBackground: string|null
     publishedAt: string
     duration: string|null
+    seconds: number|null
     views: number
     likes: number
     dislikes: number
