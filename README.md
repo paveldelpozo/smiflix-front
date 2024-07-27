@@ -1,24 +1,40 @@
-# Nuxt 3 Minimal Starter
+# SmiFlix
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Netflix like catalog using Smile and Learn Youtube channels.
 
-## Setup
+Created by Pavel del Pozo ([yosoy@paveldelpozo.es](mailto:yosoy@paveldelpozo.es))
 
-Make sure to install the dependencies:
+## Installation Steps
 
-```bash
-# npm
-npm install
+1. Clone this repo:
+    ```bash
+    git clone git@github.com:paveldelpozo/smiflix-front.git
+    ```
+   Or:
+    ```bash
+    git clone https://github.com/paveldelpozo/smiflix-front.git
+    ```
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
+2. Create into root folder `.env` file with next code:
+    ```dotenv
+    NUXT_PUBLIC_YOUTUBE_API_KEY=AIzaSyBg5EyQC89WC_Njek45OR8D-TQWasksU3Y
+    NUXT_PUBLIC_CHANNEL_ID_ES=UCCZpm6436NiU__lcBAlEZmQ
+    NUXT_PUBLIC_CHANNEL_ID_EN=UCxoDMG0tvaYO5Xobvtqw5nw
+    ```
+3. Install dependencies:
+    ```bash
+    # npm
+    npm install
+    
+    # pnpm
+    pnpm install
+    
+    # yarn
+    yarn install
+    
+    # bun
+    bun install
+    ```
 
 ## Development Server
 
@@ -71,5 +87,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
