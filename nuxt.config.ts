@@ -21,6 +21,7 @@ export default defineNuxtConfig({
         }
     },
     modules: [
+        '@nuxtjs/i18n',
         '@nuxtjs/tailwindcss',
         '@pinia/nuxt',
     ],
@@ -37,6 +38,19 @@ export default defineNuxtConfig({
         },
         config: {},
         viewer: false,
+    },
+    i18n: {
+        strategy: 'no_prefix',
+        locales: [
+            {
+                code: 'en',
+                name: 'English'
+            },
+            {
+                code: 'es',
+                name: 'Español'
+            },
+        ]
     },
     hooks: {
         'pages:extend'(pages) {

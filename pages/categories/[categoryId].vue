@@ -8,14 +8,14 @@ const config = useRuntimeConfig()
 const route = useRoute()
 const categoryId = <string>route.params.categoryId ?? ''
 const youtubeService = new YoutubeService(<string>config.public.youtubeApiKey ?? '')
-
+const { t } = useI18n()
 const breadCrumbItems = ref<BreadCrumb[]>([
     {
-        text: 'Inicio',
+        text: t('pages.home.home'),
         to: '/'
     },
     {
-        text: 'Categorías',
+        text: t('pages.categories.categories'),
         to: '/categories/'
     }
 ])
@@ -61,9 +61,10 @@ onBeforeMount(() => {
 
         <loading-bar v-model="loading"></loading-bar>
 
-        <div v-if="!playlist && !loading">
-            <h2>La categoría no se ha encontrado</h2>
-        </div>
+        <alert-message
+            v-if="!playlist && !loading"
+            :message="$t('pages.categories.selectedCategoryNotFound')"
+        ></alert-message>
 
         <div v-if="playlist" class="categories-details m-4">
             <section class="bg-center bg-no-repeat bg-cover rounded-lg" :style="`background-image: url(${playlist.imageBackground})`">

@@ -3,7 +3,6 @@ import LoadingBar from "~/components/LoadingBar.vue";
 import AppToolbar from "~/components/AppToolbar.vue";
 
 const loading = ref(false)
-
 </script>
 
 <template>
@@ -17,7 +16,7 @@ const loading = ref(false)
         </div>
 
         <div class="h-48">
-            <p class="pt-24 text-center text-sky-950 dark:text-white text-xs">© 2024 Smile and Learn Digital Creations. Todos los derechos reservados.</p>
+            <p class="pt-24 text-center text-sky-950 dark:text-white text-xs">{{ $t('footer.disclaimer') }}</p>
         </div>
     </div>
 </template>

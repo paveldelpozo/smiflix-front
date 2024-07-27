@@ -10,3 +10,24 @@
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
 }
+
+.bg-orange {
+    background-color: #F4B44A;
+}
+.fill-orange {
+    fill: #F4B44A;
+}
+.rotate-180 {
+    transform: rotate(180deg);
+}
+.divider {
+    width: 100%;
+    overflow: hidden;
+}
+.divider svg {
+    width: calc(150% + 1.3px);
+    height: 40px;
+}
+.perspective {
+    perspective: 400px;
+}
