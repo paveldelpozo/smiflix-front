@@ -1,4 +1,16 @@
 <script setup lang="ts">
+import type {PlaylistItem} from "~/models/Playlist";
+
+export interface Props {
+    items: PlaylistItem[],
+    loading: boolean
+}
+
+const props = withDefaults(defineProps<Props>(),{
+    items: () => [],
+    loading: () => true
+})
+
 const canScrollPrev = ref(false);
 const canScrollNext = ref(true);
 const slider = ref<HTMLElement|null>(null);
@@ -63,15 +75,18 @@ onBeforeMount(() => {
             class="slider overflow-x-scroll scrollbar-hide mb-4 relative px-0.5"
         >
             <div class="flex snap-x snap-mandatory w-max">
-                <div class="snap-center py-8 px-4 mx-auto text-center lg:py-48" style="width: calc(100vw - 56px)">
-                    Slider...
-                </div>
-                <div class="snap-center py-8 px-4 mx-auto text-center lg:py-48" style="width: calc(100vw - 56px)">
-                    Slider...
-                </div>
-                <div class="snap-center py-8 px-4 mx-auto text-center lg:py-48" style="width: calc(100vw - 56px)">
-                    Slider...
-                </div>
+                <section
+                    v-for="(video, v) in items"
+                    :key="v"
+                    class="snap-center bg-center bg-no-repeat bg-cover rounded-lg"
+                    :style="`width: calc(100vw - 56px); height: calc(50vh); background-image: url(${video.imageBackground});`"
+                >
+                    <div class="bg-gradient-to-r from-black/90 to-black/50 bg-blend-multiply h-full rounded-lg">
+                        <div class="px-4 mx-auto lg:mx-10 max-w-screen-2xl py-12 lg:pt-12 lg:pb-24 w-100 lg:w-1/3">
+                            <h1 class="ml-8 mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-3xl lg:text-4xl">{{ video.title }}</h1>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </section>

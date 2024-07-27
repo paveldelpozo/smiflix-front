@@ -3,7 +3,12 @@
 export default defineNuxtConfig({
     app: {
         pageTransition: { name: 'page', mode: 'out-in' },
-        layoutTransition: { name: 'layout', mode: 'out-in' }
+        layoutTransition: { name: 'layout', mode: 'out-in' },
+        head: {
+            bodyAttrs: {
+                class: 'bg-white dark:bg-sky-950',
+            },
+        },
     },
     ssr: false,
     compatibilityDate: '2024-04-03',
@@ -15,7 +20,10 @@ export default defineNuxtConfig({
             channelIdEn: ''
         }
     },
-    modules: ['@nuxtjs/tailwindcss'],
+    modules: [
+        '@nuxtjs/tailwindcss',
+        '@pinia/nuxt',
+    ],
     tailwindcss: {
         cssPath: [
             '~/assets/css/tailwind.css',
@@ -41,5 +49,5 @@ export default defineNuxtConfig({
                 file: '~/views/VideoDetail.vue'
             })
         }
-    }
+    },
 })

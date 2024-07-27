@@ -62,6 +62,6 @@ export class PlaylistItem implements PlaylistItemInterface {
         this.position = data?.snippet?.position ?? -1
         this.videoId = data?.snippet?.resourceId?.videoId ?? null
         this.thumbnail = data?.snippet?.thumbnails?.high?.url ?? null
-        this.imageBackground = data?.snippet?.thumbnails?.maxres?.url ?? null
+        this.imageBackground = data?.snippet?.thumbnails?.maxres?.url ?? data?.snippet?.thumbnails?.high?.url ?? null
     }
 }

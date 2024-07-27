@@ -11,8 +11,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.2",
     "@types/youtube": "^0.0.50",
     "nuxt": "^3.12.4",
+    "pinia": "^2.2.0",
     "vue": "latest",
     "vue3-youtube": "^0.1.9"
   },

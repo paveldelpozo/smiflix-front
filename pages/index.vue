@@ -1,26 +1,22 @@
 <script setup lang="ts">
-import {YoutubeService} from "~/services/YoutubeService";
+import {useAccountsStore} from "~/store/accounts";
+const accountsStore = useAccountsStore();
+const { getCurrentAccount } = accountsStore;
 
-const config = useRuntimeConfig()
-
-const youtubeService = new YoutubeService(<string>config.public.youtubeApiKey ?? '')
-
-async function init() {
-}
-
-onBeforeMount(() => {
-    init()
-})
 </script>
 
 <template>
     <div class="home">
-        <section class="bg-white dark:bg-gray-900">
-            <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-48">
-                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Aprende sin límites y mucho más</h1>
-                <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Disfruta donde quieras de una gran cantidad de vídeos para los menores de la casa.</p>
+        <section class="relative bg-white dark:bg-gray-900 overflow-hidden rounded-lg" style="height: calc(50vh)">
+            <div class="z-1 absolute w-full h-full perspective overflow-hidden">
+                <div class="absolute w-full aspect-square md:aspect-video bg-center bg-no-repeat bg-cover rotated" style="background-image: url(/images/thumbnails.jpg)"></div>
+                <div class="absolute w-full h-full bg-gradient-to-t from-white/100 to-white/50 dark:from-sky-950/100 dark:to-sky-950/50"></div>
+            </div>
+            <div class="absolute left-0 right-0 h-full z-2 py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-48">
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl text-sky-600 dark:text-white">Aprender nunca fue tan divertido</h1>
+                <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-sky-200">Vídeos, cuentos y juegos que crean una experiencia interactiva y motivadora.</p>
                 <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-                    <nuxt-link to="/categories/" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300 dark:focus:ring-sky-900">
+                    <nuxt-link :to="getCurrentAccount() ? '/categories/' : '/select-account/'" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300 dark:focus:ring-sky-900">
                         Entrar
                         <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -38,8 +34,27 @@ onBeforeMount(() => {
             </svg>
         </div>
 
-        <section>
-
+        <section class="bg-orange">
+            <div class="px-4 mx-auto lg:mx-10 max-w-screen-2xl py-4 md:py-12 grid grid-cols-1 md:grid-cols-2">
+                <div class="px-8 md:px-16 lg:px-24">
+                    <h2 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-3xl lg:text-4xl">Educación 360º personalizable</h2>
+                    <p class="mb-8 text-lg font-normal text-orange-100 lg:text-xl">Más de 14.000 actividades educativas para niños y niñas de 3 a 12 años en una única plataforma.</p>
+                    <p>Desarrollada por educadores, Smile and Learn es la plataforma ideal para los colegios. Analíticas de aprendizaje, gestión avanzada de grupos, personalización… Descubre todo lo que Smile and Learn puede hacer por tu centro para que las clases sean más divertidas que nunca.</p>
+                </div>
+                <div class="px-8 md:px-16 lg:px-24">
+                    <img src="/images/Multidispositivo.png" alt="Ordenador, tablet y móvil con la plataforma de Smile and Learn">
+                </div>
+            </div>
+            <div class="px-4 mx-auto lg:mx-10 max-w-screen-2xl py-4 md:py-12 grid grid-cols-1 md:grid-cols-2">
+                <div class="px-8 md:px-16 lg:px-24">
+                    <img class="rounded-lg shadow-lg mb-4" src="/images/School-And-People-C-405104033.jpg" alt="Críos divirtiéndose en clase">
+                </div>
+                <div class="px-8 md:px-16 lg:px-24">
+                    <h2 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-3xl lg:text-4xl">Aprender nunca fue tan divertido</h2>
+                    <p class="mb-8 text-lg font-normal text-orange-100 lg:text-xl">Vídeos, cuentos y juegos que crean una experiencia interactiva y motivadora.</p>
+                    <p>Descubre las más de 14.000 actividades interactivas con las que aprenderán mientras se lo pasan en grande. Desde reforzar el contenido que ven en clase hasta desarrollar nuevas habilidades, como los idiomas o la programación. Una única suscripción sirve hasta para cinco usuarios diferentes, ¿quieres saber más? ¡El primer mes es gratis!</p>
+                </div>
+            </div>
         </section>
 
         <div class="divider">
@@ -55,6 +70,9 @@ onBeforeMount(() => {
 </template>
 
 <style scoped>
+.bg-orange {
+    background-color: #F4B44A;
+}
 .fill-orange {
     fill: #F4B44A;
 }
@@ -68,7 +86,20 @@ onBeforeMount(() => {
 .divider svg {
     width: calc(150% + 1.3px);
     height: 40px;
-/*    transform: translateX(-50%);*/
-/*rotateY(180deg);*/
 }
+.perspective {
+    perspective: 400px;
+}
+/*
+.rotated {
+    perspective-origin: center;
+    transform:
+        translate(30%, -30%)
+        rotateX(12deg)
+        rotateY(12deg)
+        rotateZ(-12deg)
+        scale(125%, 125%);
+    transform-style: preserve-3d;
+}
+ */
 </style>

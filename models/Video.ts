@@ -20,7 +20,7 @@ export class Video implements VideoInterface {
         this.categoryId = data?.snippet?.playlistId ?? ''
         this.description = data?.snippet?.description ?? ''
         this.thumbnail = data?.snippet?.thumbnails?.high?.url ?? null
-        this.imageBackground = data?.snippet?.thumbnails?.maxres?.url ?? null
+        this.imageBackground = data?.snippet?.thumbnails?.maxres?.url ?? data?.snippet?.thumbnails?.high?.url ?? null
         this.publishedAt = data?.snippet?.publishedAt ?? ''
         this.duration = this.getDuration(data?.contentDetails?.duration)
         this.seconds = this.getDurationSeconds(data?.contentDetails?.duration)

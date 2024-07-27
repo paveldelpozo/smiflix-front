@@ -2,6 +2,7 @@ import {Video} from "~/models/Video";
 import {ChannelResponse} from "~/models/Channel";
 import {Playlist, PlaylistItem, PlaylistResponse} from "~/models/Playlist";
 import {PlaylistItemResponse} from "~/models/Playlist";
+import type {PlaylistItemInterface} from "~/interfaces/PlaylistInterface";
 
 export class YoutubeService {
 
@@ -47,6 +48,38 @@ export class YoutubeService {
             throw new Error('Error getting channel playlists');
         }
     }
+
+    async getAllVideosOfChannel(channelId: string): Promise<PlaylistItem[]> {
+        const url = `${this.baseUrl}/search?part=snippet&channelId=${channelId}&maxResults=50&order=date&type=video&key=${this.apiKey}`;
+        let videos: PlaylistItem[] = [];
+        let nextPageToken = '';
+        try {
+            do {
+                const response = await fetch(`${url}&pageToken=${nextPageToken}`);
+                const data = await response.json();
+                videos = videos.concat(data.items.map((video: any) => new PlaylistItem(video)));
+                nextPageToken = data.nextPageToken;
+            } while (nextPageToken);
+            return videos;
+        } catch (error) {
+            console.error('Error getting channel videos:', error);
+            return [];
+        }
+    }
+
+    async getRandomVideos(channelId: string, length: number = 5): Promise<PlaylistItem[]> {
+        const videos: PlaylistItem[] = await this.getAllVideosOfChannel(channelId)
+        const randomVideos: PlaylistItem[] = [];
+        const usedIndex: Set<number> = new Set();
+        while (randomVideos.length < length && randomVideos.length < videos.length) {
+            const randomIndex = Math.floor(Math.random() * videos.length);
+            if (!usedIndex.has(randomIndex)) {
+                usedIndex.add(randomIndex);
+                randomVideos.push(videos[randomIndex]);
+            }
+        }
+        return randomVideos
+    };
 
     async getPlaylistDetails(playlistId: string): Promise<Playlist|null> {
         const url = `${this.baseUrl}/playlists?part=snippet,contentDetails&id=${playlistId}&key=${this.apiKey}`;
