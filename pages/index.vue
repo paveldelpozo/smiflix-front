@@ -41,7 +41,7 @@ useHead({
         </div>
 
         <section class="bg-orange">
-            <div class="px-4 mx-auto lg:mx-10 max-w-screen-2xl py-4 md:py-12 grid grid-cols-1 md:grid-cols-2">
+            <div class="px-4 mx-auto max-w-screen-2xl py-4 md:py-12 grid grid-cols-1 md:grid-cols-2">
                 <div class="px-8 md:px-16 lg:px-24">
                     <h2 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-3xl lg:text-4xl">{{ $t('pages.home.custom360Education') }}</h2>
                     <p class="mb-8 text-lg font-normal text-orange-100 lg:text-xl">{{ $t('pages.home.moreOf14000activities') }}</p>
@@ -51,7 +51,7 @@ useHead({
                     <img src="/images/Multidispositivo.png" :alt="$t('pages.home.imageComputerTabletMobile')">
                 </div>
             </div>
-            <div class="px-4 mx-auto lg:mx-10 max-w-screen-2xl py-4 md:py-12 grid grid-cols-1 md:grid-cols-2">
+            <div class="px-4 mx-auto max-w-screen-2xl py-4 md:py-12 grid grid-cols-1 md:grid-cols-2">
                 <div class="px-8 md:px-16 lg:px-24">
                     <img class="rounded-lg shadow-lg mb-4" src="/images/School-And-People-C-405104033.jpg" :alt="$t('pages.home.imageKidsHavingFun')">
                 </div>
