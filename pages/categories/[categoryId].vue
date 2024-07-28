@@ -3,12 +3,15 @@ import {YoutubeService} from "~/services/YoutubeService";
 import type {Playlist} from "~/models/Playlist";
 import type {BreadCrumb} from "~/components/BreadCrumb.vue";
 import LoadingBar from "~/components/LoadingBar.vue";
+import {useAccountsStore} from "~/store/accounts";
 
 const config = useRuntimeConfig()
 const route = useRoute()
+const accountsStore = useAccountsStore();
+const { getCurrentAccount, swapSubscriptionToCurrentAccount } = accountsStore;
 const categoryId = <string>route.params.categoryId ?? ''
 const youtubeService = new YoutubeService(<string>config.public.youtubeApiKey ?? '')
-const { t } = useI18n()
+const { locale, t } = useI18n()
 const breadCrumbItems = ref<BreadCrumb[]>([
     {
         text: t('pages.home.home'),
@@ -24,6 +27,13 @@ let loading = ref(true)
 let playlist = ref<Playlist|null>(null)
 let videos = ref<any[]>([])
 let totalVideos = ref<number>(0)
+
+let subscribed = computed(() => {
+    const account = getCurrentAccount()
+    if (account) {
+        return Object.keys(account.subscriptions).includes(categoryId)
+    }
+})
 
 async function getPlaylistInfo() {
     playlist.value = await youtubeService.getPlaylistDetails(categoryId)
@@ -50,8 +60,29 @@ async function init() {
     loading.value = false
 }
 
+watch(locale, () => {
+    breadCrumbItems.value = [
+        {
+            text: t('pages.home.home'),
+            to: '/'
+        },
+        {
+            text: t('pages.categories.categories'),
+            to: '/categories/'
+        }
+    ]
+    init()
+})
+
 onBeforeMount(() => {
     init()
+})
+
+useHead({
+    title: `SmiFlix | ${t('pages.categories.categories')} | ${playlist.value?.title ?? t('pages.categories.selectedCategoryNotFound')}`,
+    meta: [
+        {name: 'description', content: t('pages.home.learnHasNeverBeenSoFun')}
+    ],
 })
 </script>
 
@@ -75,15 +106,14 @@ onBeforeMount(() => {
                             {{ playlist.description }}
                         </p>
                         <div class="flex space-y-4 sm:flex-row sm:justify-start sm:space-y-0">
-    <!--                        <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">-->
-    <!--                            Get started-->
-    <!--                            <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">-->
-    <!--                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>-->
-    <!--                            </svg>-->
-    <!--                        </a>-->
-                            <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-orange-400 hover:bg-orange-300 focus:ring-4 focus:ring-orange-300 dark:focus:ring-orange-900">
-                                Suscribirme
-                            </a>
+                            <button
+                                @click="swapSubscriptionToCurrentAccount(playlist)"
+                                class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-orange-400 hover:bg-orange-300 focus:ring-4 focus:ring-orange-300 dark:focus:ring-orange-900"
+                            >
+                                <svg v-if="subscribed" class="w-4 h-4 mr-2 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" /></svg>
+                                <svg v-if="!subscribed" class="w-4 h-4 mr-2 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg>
+                                {{ subscribed ? $t('pages.categories.unsubscribe') : $t('pages.categories.subscribe') }}
+                            </button>
                         </div>
                     </div>
                 </div>

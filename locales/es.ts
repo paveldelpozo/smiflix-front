@@ -23,6 +23,7 @@ export const es = {
             discoverMoreThan14000activities: 'Descubre las más de 14.000 actividades interactivas con las que aprenderán mientras se lo pasan en grande. Desde reforzar el contenido que ven en clase hasta desarrollar nuevas habilidades, como los idiomas o la programación. Una única suscripción sirve hasta para cinco usuarios diferentes, ¿quieres saber más? ¡El primer mes es gratis!'
         },
         selectAccount: {
+            selectAccount: 'Elige tu perfil',
             howAreYou: '¿Quien eres? Elige tu perfil',
             addAccount: 'Añadir perfil',
             createAccount: 'Crear nuevo perfil',
@@ -33,7 +34,9 @@ export const es = {
         categories: {
             categories: 'Categorias',
             noCategoryFound: 'No se ha encontrado ninguna categoría.',
-            selectedCategoryNotFound: 'No se ha encontrado la categoría seleccionada.'
+            selectedCategoryNotFound: 'No se ha encontrado la categoría seleccionada.',
+            subscribe: 'Suscribirme',
+            unsubscribe: 'Desuscribirme',
         },
         video: {
             uploadDate: 'Fecha de subida',

@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import {useAccountsStore} from "~/store/accounts";
+const { t } = useI18n()
 const accountsStore = useAccountsStore();
 const { getCurrentAccount } = accountsStore;
+useHead({
+    title: 'SmiFlix',
+    meta: [
+        {name: 'description', content: t('pages.home.learnHasNeverBeenSoFun')}
+    ],
+})
 </script>
 
 <template>

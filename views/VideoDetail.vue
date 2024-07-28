@@ -4,13 +4,17 @@ import type {Video} from "~/models/Video";
 import type {BreadCrumb} from "~/components/BreadCrumb.vue";
 import type {Playlist} from "~/models/Playlist";
 import LoadingBar from "~/components/LoadingBar.vue";
+import {useAccountsStore} from "~/store/accounts";
 
 const config = useRuntimeConfig()
 const route = useRoute()
+const accountsStore = useAccountsStore();
+const { getCurrentAccount, addViewVideoWithCurrentTime } = accountsStore;
 const videoId = <string>route.params.videoId ?? ''
 const categoryId = <string>route.params.categoryId ?? ''
 const youtubeService = new YoutubeService(<string>config.public.youtubeApiKey ?? '')
-const { t } = useI18n()
+const startTime = ref(0)
+const { locale, t } = useI18n()
 const breadCrumbItems = ref<BreadCrumb[]>([
     {
         text: t('pages.home.home'),
@@ -47,6 +51,19 @@ async function getVideo() {
     }
 }
 
+function updateCurrentTime(currentTime: number) {
+    if (video.value) {
+        addViewVideoWithCurrentTime(<Video>video.value, currentTime)
+    }
+}
+
+function getStartTime() {
+    const account = getCurrentAccount()
+    if (account?.views[videoId]) {
+        startTime.value = account.views[videoId].currentTime
+    }
+}
+
 async function init() {
     loading.value = true
     await getPlaylistInfo()
@@ -54,8 +71,30 @@ async function init() {
     loading.value = false
 }
 
+watch(locale, () => {
+    breadCrumbItems.value = [
+        {
+            text: t('pages.home.home'),
+            to: '/'
+        },
+        {
+            text: t('pages.categories.categories'),
+            to: '/categories/'
+        }
+    ]
+    init()
+})
+
 onBeforeMount(() => {
     init()
+    getStartTime()
+})
+
+useHead({
+    title: `SmiFlix | ${t('pages.categories.categories')} | ${playlist.value?.title ?? t('pages.categories.selectedCategoryNotFound')} | ${video.value?.title ?? t('pages.video.selectedVideoNotFound')}`,
+    meta: [
+        {name: 'description', content: t('pages.home.learnHasNeverBeenSoFun')}
+    ],
 })
 </script>
 
@@ -76,18 +115,19 @@ onBeforeMount(() => {
             :message="$t('pages.categories.selectedCategoryNotFound')"
         ></alert-message>
 
-        <div v-if="video" class="flex w-full p-4 gap-4">
-            <div class="w-100 lg:w-3/4">
+        <div v-if="video" class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
+            <div class="md:col-span-3">
                 <video-player
                     v-if="videoId"
                     :video-id="videoId"
-                    :start-time="0"
+                    :start-time="startTime"
                     :duration="video.duration"
                     :seconds="video.seconds"
+                    @update:current-time="updateCurrentTime"
                 ></video-player>
             </div>
 
-            <div class="w-100 lg:w-1/4 bg-sky-50 dark:bg-sky-900 rounded-md p-4">
+            <div class=" bg-sky-50 dark:bg-sky-900 rounded-md p-4">
                 <h2 class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-sky-400">{{ video.title }}</h2>
                 <div class="relative mb-4">
                     <p class="text-base font-normal text-gray-900 dark:text-white overflow-y-auto scrollbar-hide" :class="showAllDescription ? 'max-h-full' : 'max-h-48'">

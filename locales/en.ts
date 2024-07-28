@@ -23,6 +23,7 @@ export const en = {
             discoverMoreThan14000activities: 'Discover more than 14,000 interactive activities to help children learn while having fun. From reinforcing the material they see in school to acquiring new skills, such as languages or programming. A single subscription is good for up to five different users. Want to know more? The first month is free!'
         },
         selectAccount: {
+            selectAccount: 'Select account',
             howAreYou: 'How are you? Select your profile',
             addAccount: 'Add profile',
             createAccount: 'Create new profile',
@@ -33,7 +34,9 @@ export const en = {
         categories: {
             categories: 'Categories',
             noCategoryFound: 'No category found.',
-            selectedCategoryNotFound: 'The selected category has not been found.'
+            selectedCategoryNotFound: 'The selected category has not been found.',
+            subscribe: 'Subscribe',
+            unsubscribe: 'Unsubscribe',
         },
         video: {
             uploadDate: 'Upload date',

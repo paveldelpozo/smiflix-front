@@ -39,12 +39,14 @@ export class ViewVideo implements ViewVideoInterface {
     thumbnail: string|null
     duration: number
     seconds: number
+    currentTime: number
 
     constructor(data?: any) {
         this.id = data?.id ?? ''
         this.title = data?.title ?? ''
         this.thumbnail = data?.thumbnail ?? ''
         this.duration = data?.duration ?? ''
-        this.seconds = data?.seconds
+        this.seconds = data?.seconds ?? ''
+        this.currentTime = data?.currentTime
     }
 }

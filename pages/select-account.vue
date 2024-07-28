@@ -2,7 +2,7 @@
 import {Account} from "~/models/Account";
 import {storeToRefs} from "pinia";
 import {useAccountsStore} from "~/store/accounts";
-
+const { t } = useI18n()
 const avatars = [
     '/images/avatars/bird.svg',
     '/images/avatars/cat.svg',
@@ -13,12 +13,10 @@ const avatars = [
 ];
 const accountsStore = useAccountsStore();
 const { accounts, currentAccount } = storeToRefs(accountsStore);
-
 const router = useRouter()
 const newAccount = ref<Account>(new Account())
 const creatingAccount = ref(false)
 const inputName = ref<HTMLElement|null>(null)
-
 const { addAccount, setCurrentAccount, getCurrentAccount } = accountsStore
 
 function createAccount() {
@@ -44,6 +42,13 @@ onMounted(() => {
     if (accounts.value.length === 0) {
         createAccount()
     }
+})
+
+useHead({
+    title: `SmiFlix | ${t('pages.selectAccount.selectAccount')}`,
+    meta: [
+        {name: 'description', content: t('pages.home.learnHasNeverBeenSoFun')}
+    ],
 })
 </script>
 

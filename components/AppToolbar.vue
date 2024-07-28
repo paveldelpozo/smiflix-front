@@ -49,17 +49,29 @@ function logout() {
                         </a>
                     </li>
                     <li v-if="getCurrentAccount()">
-                        <button
-                            @click="logout"
-                            class="inline-flex justify-center items-center text-sky-400"
-                        >
-                            <img
-                                class="w-8 h-8 mr-2 rounded"
-                                :src="getCurrentAccount()?.avatar"
-                                :alt="`${getCurrentAccount()?.name} avatar`"
-                            >
-                            <span class="md:hidden">{{ getCurrentAccount()?.name }} ({{ $t('appToolbar.logout') }})</span>
-                        </button>
+                        <dropdown>
+                            <template #button="{ toggleDropdown }">
+                                <button
+                                    @click="toggleDropdown"
+                                    class="inline-flex justify-center items-center text-sky-400"
+                                >
+                                    <img
+                                        class="w-8 h-8 mr-2 rounded"
+                                        :src="getCurrentAccount()?.avatar"
+                                        :alt="`${getCurrentAccount()?.name} avatar`"
+                                    >
+                                    <span class="md:hidden">{{ getCurrentAccount()?.name }}</span>
+                                </button>
+                            </template>
+                            <template #content>
+                                <button
+                                    @click="logout"
+                                    class="w-full text-sky-400 block px-4 py-2 text-left text-md bg-white text-sky-400 hover:bg-gray-100"
+                                    role="menuitem"
+                                    tabindex="-1"
+                                >{{ $t('appToolbar.logout') }}</button>
+                            </template>
+                        </dropdown>
                     </li>
                 </ul>
             </div>

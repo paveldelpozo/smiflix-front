@@ -13,23 +13,23 @@ const props = withDefaults(defineProps<Props>(),{
     startTime: () => 0,
     seconds: () => 0
 })
-
+const emit = defineEmits(['update:currentTime']);
 const player = ref<YT.Player|null>(null);
 const wrapper = ref<HTMLElement|null>(null);
 
-const youtubeOptions = {
+const youtubeOptions = ref({
     autoplay: 0,
     controls: 0,
     enablejsapi: 1,
-    fs: 1,
+    //fs: 1,
     rel: 0,
-    start: props.startTime,
+    start: Math.floor(props.startTime),
     hl: 'es-ES'
-}
+})
 const isPlaying = ref(false)
 const currentTime = ref(props.startTime)
 const intervalId = ref<number | null>(null)
-const settingSize = ref(false)
+//const settingSize = ref(false)
 const width = ref(640)
 const height = ref(640 * 9 / 16)
 const progress = ref(0)
@@ -44,10 +44,19 @@ function playPause() {
     }
 }
 
+function stop() {
+    if (player.value) {
+        player.value.stopVideo()
+        currentTime.value = 0;
+        emit('update:currentTime', currentTime.value);
+    }
+}
+
 function playHandler() {
     isPlaying.value = true
     if (player.value) {
         currentTime.value = player.value.getCurrentTime();
+        emit('update:currentTime', currentTime.value);
         progress.value = currentTime.value / (props.seconds ?? 0) * 100
     }
 }
@@ -113,7 +122,7 @@ onBeforeUnmount(() => {
                     {{ YoutubeService.formatSeconds(Math.floor(currentTime)) }}
                 </div>
                 <div class="flex space-x-3">
-                    <button class="focus:outline-none">
+                    <button @click="stop" class="focus:outline-none disabled:opacity-50" :disabled="currentTime === 0">
                         <svg class="w-6 h-6 fill-orange-500 hover:fill-orange-400 transition duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z" />
                         </svg>
@@ -128,11 +137,11 @@ onBeforeUnmount(() => {
                         </svg>
                     </button>
 
-                    <button class="focus:outline-none">
-                        <svg class="w-6 h-6 fill-orange-500 hover:fill-orange-400 transition duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
-                        </svg>
-                    </button>
+<!--                    <button class="focus:outline-none">-->
+<!--                        <svg class="w-6 h-6 fill-orange-500 hover:fill-orange-400 transition duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">-->
+<!--                            <path d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />-->
+<!--                        </svg>-->
+<!--                    </button>-->
                 </div>
                 <div class="w-24 text-right text-white">
                     Duración: {{ duration }}

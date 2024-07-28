@@ -22,4 +22,5 @@ export interface ViewVideoInterface {
     thumbnail: string|null
     duration: number
     seconds: number
+    currentTime: number
 }

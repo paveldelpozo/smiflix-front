@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {YoutubeService} from "~/services/YoutubeService";
-import BreadCrumb from "~/components/BreadCrumb.vue";
+import type {BreadCrumb} from "~/components/BreadCrumb.vue";
 // import Slider from "~/components/Slider.vue";
 import LoadingBar from "~/components/LoadingBar.vue";
-import type {PlaylistItem} from "~/models/Playlist";
+// import type {PlaylistItem} from "~/models/Playlist";
 
+const { locale, t } = useI18n()
 const config = useRuntimeConfig()
 const youtubeService = new YoutubeService(<string>config.public.youtubeApiKey ?? '')
-const { locale, t } = useI18n()
-const breadCrumbItems = [
+const breadCrumbItems = ref<BreadCrumb[]>([
     {
         text: t('pages.home.home'),
         to: '/'
@@ -17,7 +17,7 @@ const breadCrumbItems = [
         text: t('pages.categories.categories'),
         to: null
     }
-]
+])
 const channelIDs: { [key: string]: string } = {
     es: <string>config.public.channelIdEs ?? '',
     en: <string>config.public.channelIdEn ?? ''
@@ -25,7 +25,7 @@ const channelIDs: { [key: string]: string } = {
 
 let loading = ref(true)
 let playlists = ref<any[]>([])
-let randomVideos = ref<PlaylistItem[]>([])
+// let randomVideos = ref<PlaylistItem[]>([])
 
 async function getChannels() {
     let response = await youtubeService.getChannelPlayLists(channelIDs[locale.value], 10)
@@ -46,8 +46,29 @@ async function init() {
     loading.value = false
 }
 
+watch(locale, () => {
+    getChannels()
+    breadCrumbItems.value = [
+        {
+            text: t('pages.home.home'),
+            to: '/'
+        },
+        {
+            text: t('pages.categories.categories'),
+            to: null
+        }
+    ]
+})
+
 onBeforeMount(() => {
     init()
+})
+
+useHead({
+    title: `SmiFlix | ${t('pages.categories.categories')}`,
+    meta: [
+        {name: 'description', content: t('pages.home.learnHasNeverBeenSoFun')}
+    ],
 })
 </script>
 

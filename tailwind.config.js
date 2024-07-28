@@ -17,6 +17,11 @@ export default {
             }
         }
     },
+    content: [
+        "./pages/**/*.{js,ts,jsx,tsx,vue}",
+        "./views/**/*.{js,ts,jsx,tsx,vue}",
+        "./components/**/*.{js,ts,jsx,tsx,vue}",
+    ],
     safelist: [
         {
             pattern: /bg-+/,

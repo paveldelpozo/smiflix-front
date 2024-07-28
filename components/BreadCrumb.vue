@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<Props>(),{
                             <svg v-if="i > 0" class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                             </svg>
-                            {{ item.text }}
+                            <span class=" max-w-64 truncate">{{ item.text }}</span>
                         </nuxt-link>
                     </li>
                     <li v-else aria-current="page">
@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<Props>(),{
                             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                             </svg>
-                            <span class="ms-1 text-sm font-medium text-sky-600 md:ms-2 dark:text-sky-300">{{ item.text }}</span>
+                            <span class="ms-1 text-sm font-medium text-sky-600 md:ms-2 dark:text-sky-300 max-w-64 truncate">{{ item.text }}</span>
                         </div>
                     </li>
                 </template>
