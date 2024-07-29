@@ -44,7 +44,8 @@ export const en = {
             likes: 'Likes',
             dislikes: 'Dislikes',
             moreVideos: 'More videos from this category',
-            selectedVideoNotFound: 'The selected video has not been found.'
+            selectedVideoNotFound: 'The selected video has not been found.',
+            duration: 'Duration'
         }
     },
     alerts: {

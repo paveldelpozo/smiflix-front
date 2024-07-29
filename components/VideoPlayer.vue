@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
 <!--                    </button>-->
                 </div>
                 <div class="w-24 text-right text-white">
-                    Duración: {{ duration }}
+                    {{ $t('pages.video.duration') }}: {{ duration }}
                 </div>
             </div>
         </div>
