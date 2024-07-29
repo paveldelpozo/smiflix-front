@@ -169,7 +169,7 @@ useHead({
                     </span>
                 </div>
 
-                <h3 class="md:text-xl flex items-center space-x-3 text-md mt-4 text-black dark:text-white">{{ $t('pages.video.moreVideos') }}</h3>
+<!--                <h3 class="md:text-xl flex items-center space-x-3 text-md mt-4 text-black dark:text-white">{{ $t('pages.video.moreVideos') }}</h3>-->
 
             </div>
         </div>

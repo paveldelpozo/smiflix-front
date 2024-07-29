@@ -19,8 +19,8 @@ useHead({
                 <div class="absolute w-full h-full bg-gradient-to-t from-white/100 to-white/50 dark:from-sky-950/100 dark:to-sky-950/50"></div>
             </div>
             <div class="absolute left-0 right-0 h-full z-2 py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-24">
-                <div class="drop-shadow-lg mx-auto w-40 bg-sky-600 rounded-full p-4"><img src="/images/smiflix-logo.svg" class="h-32 drop-shadow-md" alt="SmiFlix Logo" /></div>
-                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-sky-600 dark:text-white">{{ $t('pages.home.learnHasNeverBeenSoFun') }}</h1>
+                <div class="drop-shadow-lg mx-auto w-20 md:w-40 bg-sky-600 rounded-full p-4"><img src="/images/smiflix-logo.svg" class="h-12 md:h-32 drop-shadow-md" alt="SmiFlix Logo" /></div>
+                <h1 class="mb-4 text-2xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-sky-600 dark:text-white">{{ $t('pages.home.learnHasNeverBeenSoFun') }}</h1>
                 <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-sky-200">{{ $t('pages.home.videosStoriesAndGames') }}</p>
                 <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
                     <nuxt-link :to="getCurrentAccount() ? '/categories/' : '/select-account/'" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300 dark:focus:ring-sky-900">
