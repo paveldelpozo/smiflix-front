@@ -64,12 +64,12 @@ useHead({
                     @click="selectAccount(account)"
                     class="flex flex-col justify-center items-center group cursor-pointer"
                 >
-                    <img :src="account.avatar" :alt="`Avatar ${a + 1}`" class="rounded-lg mb-2">
+                    <img :src="account.avatar" :alt="`Avatar ${a + 1}`" class="rounded-lg max-h-[256px] mb-2">
                     <span class="text-lg md:text-xl lg:text-2xl font-extrabold text-center text-orange-400">{{ account.name }}</span>
                 </button>
 
                 <button v-if="accounts.length < 4" @click="createAccount" class="flex flex-col justify-center items-center group cursor-pointer">
-                    <svg class="aspect-square fill-orange-400 group-hover:fill-orange-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <svg class="aspect-square fill-orange-400 group-hover:fill-orange-300 max-h-[256px] mb-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
                     </svg>
                     <span class="text-lg md:text-xl lg:text-2xl font-extrabold text-center text-orange-400">{{ $t('pages.selectAccount.addAccount') }}</span>
