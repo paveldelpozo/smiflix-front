@@ -37,10 +37,10 @@ function logout() {
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-2 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent dark:bg-transparent md:dark:bg-transparent dark:border-gray-700">
                     <li>
-                        <swap-locale-button></swap-locale-button>
+                        <swap-theme-button></swap-theme-button>
                     </li>
                     <li>
-                        <swap-theme-button></swap-theme-button>
+                        <swap-locale-button></swap-locale-button>
                     </li>
                     <li>
                         <a href="https://github.com/paveldelpozo/smiflix-front" target="_blank" class="inline-flex justify-center items-center text-sky-400">

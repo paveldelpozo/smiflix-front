@@ -8,8 +8,15 @@ export const useThemeStore = defineStore('themeStore', () => {
         localStorage.setItem('darkMode', darkMode.value)
     }
 
+    function setDarkMode(state: boolean) {
+        darkMode.value = state
+        localStorage.setItem('darkMode', darkMode.value)
+        window.console.log('Click >>', darkMode.value)
+    }
+
     return {
         darkMode,
-        swapDarkMode
+        swapDarkMode,
+        setDarkMode
     }
 })
